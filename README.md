@@ -1,1 +1,1 @@
-# Initialize repo
+# Tree Farm - Prototypal exercise
