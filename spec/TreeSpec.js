@@ -24,7 +24,9 @@ describe("The specification for tree farm functions", function(){
 
 	// 5. There should be a height property on Plant.
 	it("there should be a height property on Plant", function() {
-		expect(Plant).toEqual(jasmine.objectContaining({
+		let newPlant = new Plant();
+		// expect(newPlant.height).toBe(null);
+		expect(newPlant).toEqual(jasmine.objectContaining({
       height: null
     }))
 	})
@@ -47,7 +49,12 @@ describe("The specification for tree farm functions", function(){
 	})
 
 	// 9. When you invoke the trim method on Tree, the values of the branches property should be decreased by one.
-	
+	it("when you invoke trim method, branches should be decreased by 1", function(){
+		let TestTree3 = new Plant();
+		TestTree3.branches = 6;
+		TestTree3.trim(3);
+		expect(TestTree3.branches).toBe(5);
+	})
 
 	// 10. When you invoke the grow method on Tree, the height of the Tree should be increased by the integer value that is passed as an argument (e.g. PearTree.grow(2))
 	it("when invoking grow method, height of tree should be increased by argument amount", function(){

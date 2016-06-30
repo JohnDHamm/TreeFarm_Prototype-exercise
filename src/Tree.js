@@ -1,7 +1,7 @@
 "use strict";
 
 function Tree() {
-
+	this.branches = null;
 
 }
 
@@ -11,6 +11,7 @@ Tree.prototype.grow = function(num){
 
 Tree.prototype.trim = function(num){
 	this.decreaseHeight(num);
+	this.branches -= 1;
 }
 
 function Plant() {
