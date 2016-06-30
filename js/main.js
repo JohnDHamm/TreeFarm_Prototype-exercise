@@ -8,12 +8,15 @@ function Plant() {
 
 // The Plant prototype should have two methods on it: increaseHeight and decreaseHeight. Each method should accept an integer value as input.
 Plant.prototype.increaseHeight = function(num){
-	// Each time the height of a tree increases by 10, the value of branch should increase by one.
-	// let oldHeight = this.height;
-
-	
 	// increaseHeight should increase the value of the height property by the amount passed in as an argument.
 	this.height += num;
+
+	// Each time the height of a tree increases by 10, the value of branch should increase by one.
+	if (this.height > this.nextHeightLimit){
+		this.nextHeightLimit += 10;
+		console.log("nextHeightLimit", this.nextHeightLimit);
+		this.branches += 1;
+	}
 };
 Plant.prototype.decreaseHeight = function(num){
 	// decreaseHeight should decrease the value of the height property by the amount passed in as an argument.
@@ -23,9 +26,11 @@ Plant.prototype.decreaseHeight = function(num){
 
 
 // Create a Tree function.
-function Tree() {
+function Tree(origHeight) {
 	// Tree should have a property of branches.
 	this.branches = null;
+	this.height = origHeight;
+	this.nextHeightLimit = origHeight + 10;
 }
 
 // Plant should be the prototype of Tree.
@@ -35,11 +40,13 @@ Tree.prototype = new Plant();
 Tree.prototype.grow = function(num){
 	// The grow method should accept an integer value as input.
 	// The grow method should increase the height of the tree.
+	console.log("growing!");
 	this.increaseHeight(num);
 };
 Tree.prototype.trim = function(num){
 	// The trim method should accept an integer value as input.
 	// The trim method should decrease the height of the tree.
+	console.log("trimming!");
 	this.decreaseHeight(num);
 	// When the trim method is called, the number of branches should decrease by one.
 	this.branches -= 1;
@@ -48,18 +55,19 @@ Tree.prototype.trim = function(num){
 
 
 // Create a PearTree instance of Tree. 
-let PearTree = new Tree();
-PearTree.height = 20;
+let PearTree = new Tree(20);
+// PearTree.height = 20;
 PearTree.branches = 4;
-console.log("Pear height", PearTree.height);
-console.log("Pear branches", PearTree.branches);
+console.log("Pear start height", PearTree.height);
+console.log("Pear next ht limit", PearTree.nextHeightLimit);
+console.log("Pear start branches", PearTree.branches);
 
 // Create an OakTree instance of Tree.
-let OakTree = new Tree();
-OakTree.height = 30;
+let OakTree = new Tree(30);
+// OakTree.height = 30;
 OakTree.branches = 6;
-console.log("Oak height", OakTree.height);
-console.log("Oak branches", OakTree.branches);
+console.log("Oak start height", OakTree.height);
+console.log("Oak start branches", OakTree.branches);
 
 
 let growCounter = 0;
@@ -70,8 +78,11 @@ function growTrees() {
 	PearTree.grow(2);
 	OakTree.grow(4);
 	// Every tenth time the trees are grown, invoke the trim method. Pass one value to the method for the pear tree, and a larger value to the method on the oak tree.
-	// var ? = growCounter / 10 ... // test to see if multiple of 10
-	// if (growCounter)
+	if (growCounter % 10 === 0) {
+		console.log("10th grow!", growCounter);
+		PearTree.trim(7);
+		OakTree.trim(13);
+	}
 
 
 	// Also output the current height of each tree and how many branches it has to the DOM.
