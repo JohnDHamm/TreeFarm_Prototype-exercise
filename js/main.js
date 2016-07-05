@@ -1,5 +1,7 @@
 "use strict";
 
+let $outputEl = $("#output");
+
 // Create a Plant function.
 function Plant() {
 	// Plant should have a property of height.
@@ -12,7 +14,7 @@ Plant.prototype.increaseHeight = function(num){
 	this.height += num;
 
 	// Each time the height of a tree increases by 10, the value of branch should increase by one.
-	if (this.height > this.nextHeightLimit){
+	if (this.height >= this.nextHeightLimit){
 		this.nextHeightLimit += 10;
 		console.log("nextHeightLimit", this.nextHeightLimit);
 		this.branches += 1;
@@ -86,8 +88,12 @@ function growTrees() {
 
 
 	// Also output the current height of each tree and how many branches it has to the DOM.
+	// Pear tree is now 23cm tall and has 2 branches
+	$outputEl.append(`<p>grow counter: ${growCounter}`)
+	$outputEl.append(`<p>Pear tree is now ${PearTree.height}ft tall and has ${PearTree.branches} branches</p>`);
 	console.log("Pear height:", PearTree.height);
 	console.log("Pear branches", PearTree.branches);
+	$outputEl.append(`<p>Oak tree is now ${OakTree.height}ft tall and has ${OakTree.branches} branches</p><br>`);
 	console.log("Oak height:", OakTree.height);
 	console.log("Oak branches", OakTree.branches);
 
